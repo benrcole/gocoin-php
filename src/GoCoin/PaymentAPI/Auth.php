@@ -13,6 +13,9 @@ namespace GoCoin\PaymentAPI;
 
 class Auth
 {
+
+    /** @var Client $client */
+    private $client;
     /**
     * constant value for required params of password authentication
     *
@@ -30,10 +33,9 @@ class Auth
     /**
     * Constructor
     *
-    * @param mixed $client
-    * @return Auth
+    * @param Client $client
     */
-    public function __construct($client)
+    public function __construct(Client $client)
     {
       $this->client = $client;
     }
@@ -45,14 +47,14 @@ class Auth
     */
     public function getAuthURL()
     {
-        $url = $this->client->get_dashboard_url()."/auth";
+        $url = $this->client->getDashboardURL()."/auth";
         $options = array(
             'response_type' => 'code',
             'client_id' => $this->client->options['client_id'],
-            'redirect_uri' => $this->client->get_current_url(),
+            'redirect_uri' => $this->client->getCurrentURL(),
             'scope' => $this->client->options['scope'],
         );
-        $url = $this->client->create_get_url($url, $options);
+        $url = $this->client->createGetURL($url, $options);
 
         return $url;
     }
@@ -65,7 +67,7 @@ class Auth
 
     public function authenticate($options)
     {
-      $required = array();
+      //$required = array();
         if ($options['grant_type'] == 'password') {
             $required = $this->required_password_params;
         } elseif ($options['grant_type'] == 'authorization_code') {
@@ -76,8 +78,8 @@ class Auth
             return false;
         }
 
-      $headers = $options['headers'] != null ? $options['headers'] : $this->client->default_headers;
-      $body = $this->build_body($options, $required);
+      //$headers = $options['headers'] != null ? $options['headers'] : $this->client->default_headers;
+      $body = $this->buildBody($options, $required);
       if ($body == false) {
           return false;
       }
@@ -90,7 +92,7 @@ class Auth
         'body' => $body
       );
 
-      return $this->client->raw_request($config);
+      return $this->client->rawRequest($config);
     }
 
     /**
@@ -101,7 +103,7 @@ class Auth
     * @return Array result
     */
 
-    public function build_body($options, $required)
+    public function buildBody($options, $required)
     {
         $result = array();
         foreach ($required as $k) {

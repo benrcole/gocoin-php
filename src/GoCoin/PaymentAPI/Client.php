@@ -263,8 +263,8 @@ class Client
 
     public function getAPIURL($options)
     {
-        $options = $this->set_default_value($options, $this->options);
-        $url = $this->request_client($options['secure'])."://".$options['host'].$options['path']."/".$options['api_version'];
+        $options = $this->setDefaultValue($options, $this->options);
+        $url = $this->requestClient($options['secure'])."://".$options['host'].$options['path']."/".$options['api_version'];
 
         return $url;
     }
@@ -276,7 +276,7 @@ class Client
 
     public function getDashboardURL()
     {
-        $url = $this->request_client($this->options['secure'])."://".$this->options['dashboard_host'];
+        $url = $this->requestClient($this->options['secure'])."://".$this->options['dashboard_host'];
 
         return $url;
     }
@@ -352,9 +352,10 @@ class Client
     {
         $url = $this->requestClient($this->options['secure'])."://".$config['host'] . $config['path'];
 
-        $headers = $this->default_headers;
+        //@todo might need to merge headers?
+        //$headers = $this->default_headers;
 
-        $result = $this->do_request($url, $config['body'], $config['headers'], $config['method']);
+        $result = $this->doRequest($url, $config['body'], $config['headers'], $config['method']);
 
         $result = json_decode($result);
 
@@ -380,7 +381,6 @@ class Client
 
     public function setDefaultValue($arr, $default_arr)
     {
-        $result = array();
         $result = $default_arr;
         foreach ($arr as $key => $value) {
             $result[$key] = $value;
@@ -396,8 +396,9 @@ class Client
      * @param  Array  $params The parameters to pass to the URL
      * @return string
      */
-    public function creatGetURL($url,$params)
+    public function createGetURL($url,$params)
     {
+        $arr_params=array();
         if (!empty($params) && $params) {
             foreach ($params as $param_name=>$param_value) {
                 $arr_params[] = "$param_name=".$param_value;
@@ -415,7 +416,7 @@ class Client
      *
      * Gets the xrate - aka current btc exchange rate in US Dollars
      *
-     * @throws Exception error
+     * @throws \Exception error
      * @return Array
      */
 
@@ -537,7 +538,7 @@ class Client
           $params = explode('&', $parts['query']);
           $retained_params = array();
           foreach ($params as $param) {
-            if ($this->should_drop_param($param)) {
+            if ($this->shouldDropParam($param)) {
               $retained_params[] = $param;
             }
           }
@@ -566,7 +567,7 @@ class Client
     * @return boolean
     */
 
-    public function shouldDropParam($param)
+    private function shouldDropParam($param)
     {
         $drop_params = array('code');
         foreach ($drop_params as $drop_param) {

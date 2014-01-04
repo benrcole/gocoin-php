@@ -28,6 +28,12 @@ class User
 
         return $this->api->request($route, $options);
     }
+
+    /**
+     * @param $id
+     * @todo find correct use of function
+     * @return bool
+     */
     public function delete($id)
     {
         $route = "/users/" . $id;
@@ -95,7 +101,7 @@ class User
             'host' => $this->api->client->options['host'],
             'path' => "" . $this->api->client->options['path'] . "/" . $this->api->client->options['api_version'] . $route,
             'method' => 'POST',
-            'port' => $this->api->client.port(),
+            'port' => $this->api->client->port(),
             'headers' => $this->api->client->headers,
             'body' => $params['data']
         );
@@ -103,6 +109,11 @@ class User
         return $this->api->client->raw_request($config);
     }
 
+    /**
+     * @param $params
+     * @todo find correct use of function
+     * @return mixed
+     */
     public function requestNewConfirmationEmail($params)
     {
         $route = "/users/request_new_confirmation_email";

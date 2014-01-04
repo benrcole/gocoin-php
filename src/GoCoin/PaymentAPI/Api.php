@@ -47,6 +47,12 @@ class Api
     *
     */
 
+    /**
+     * @param $route
+     * @param $options
+     *
+     * @return bool
+     */
     public function request($route, $options)
     {
         if (!(($route != null) && is_string($route))) {
@@ -83,7 +89,7 @@ class Api
             'body' => $options['body']
         );
 
-        return $this->client->raw_request($config);
+        return $this->client->rawRequest($config);
     }
 
 }

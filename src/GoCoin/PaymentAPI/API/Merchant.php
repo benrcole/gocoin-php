@@ -55,6 +55,12 @@ class Merchant
       return $this->api->request($route, $options);
     }
 
+    /**
+     * @param $params
+     * @param $callback
+     * @todo find need for $callback
+     * @return bool
+     */
     public function update($params, $callback)
     {
       $route = "/merchants/" . $params['id'];

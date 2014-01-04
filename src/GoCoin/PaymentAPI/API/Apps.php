@@ -41,6 +41,12 @@ class  Apps
         return $this->api->request($route, $options);
     }
 
+    /**
+     * @param $id
+     * @param $callback
+     * @todo find need for $callback
+     * @return bool
+     */
     public function delete($id, $callback)
     {
         $route = "/oauth/applications/" . $id;
@@ -51,6 +57,12 @@ class  Apps
         return $this->api->request($route, $options);
     }
 
+    /**
+     * @param $id
+     * @param $callback
+     * @todo find need for $callback
+     * @return bool
+     */
     public function deleteAuthorized($id, $callback)
     {
         $route = "/oauth/authorized_applications/" . $id;
@@ -61,6 +73,12 @@ class  Apps
         return $this->api->request($route, $options);
     }
 
+    /**
+     * @param $id
+     * @param $callback
+     * @todo find need for $callback
+     * @return bool
+     */
     public function get($id, $callback)
     {
         $route = "/oauth/applications/" . $id;
@@ -69,6 +87,12 @@ class  Apps
         return $this->api->request($route, $options);
     }
 
+    /**
+     * @param $id
+     * @param $callback
+     * @todo find need for $callback
+     * @return bool
+     */
     public function alist($id, $callback)
     {
         $route = "/users/" . $id . "/applications";
@@ -77,6 +101,12 @@ class  Apps
         return $this->api->request($route, $options);
     }
 
+    /**
+     * @param $id
+     * @param $callback
+     * @todo find need for $callback
+     * @return bool
+     */
     public function listAuthorized($id, $callback)
     {
         $route = "/users/" . $id . "/authorized_applications";
@@ -96,6 +126,12 @@ class  Apps
         return $this->api->request($route, $options);
     }
 
+    /**
+     * @param $id
+     * @param $callback
+     * @todo find need for $callback
+     * @return bool
+     */
     public function newSecret($id, $callback)
     {
         $route = "/oauth/applications/" . $id . "/request_new_secret";
