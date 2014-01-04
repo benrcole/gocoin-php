@@ -1,6 +1,9 @@
 gocoin-PHP
 ===========
 
+Currenty undergoing an attack of PSR Compliant rework - I wouldn't use this if i were you....
+
+
 A PHP client library for the GoCoin API.
 
 
