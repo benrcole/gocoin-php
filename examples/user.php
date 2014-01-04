@@ -1,11 +1,11 @@
 <?php
-    require_once('../src/api.php');
-    require_once('../src/auth.php');
-    require_once('../src/client.php');
+    require_once '../src/Api.php';
+    require_once '../src/Auth.php';
+    require_once '../src/Client.php';
 
     session_start();
-                                                                                              
-    /*    
+
+    /*
         Id:    your app client_id
         Secret:    your app secret id
         scope: read scope
@@ -22,8 +22,8 @@
         'client_secret' => "PLACE_YOUR_CLIENT_SECRET_HERE",
         'scope' => "user_read_write",
         'headers' => $headers
-    ));    
-    
+    ));
+
     $b_auth = $client->authorize_api();
 
     if ($b_auth) {
@@ -45,7 +45,6 @@
 <html>
 <body>
 
-
     <?php if ($user) : ?>
     <ul>
         <li>User Id : &nbsp;&nbsp;<?php echo $user->id?></li>
@@ -55,7 +54,7 @@
         <li>Created Date :&nbsp;&nbsp;<?php echo $user->created_at?></li>
         <li>Updated Date :&nbsp;&nbsp;<?php echo $user->updated_at?></li>
         <li>Image Url :&nbsp;&nbsp;<?php echo $user->image_url?></li>
-        <li>Merchant Id :&nbsp;&nbsp;<?php echo $user->merchant_id?></li>                
+        <li>Merchant Id :&nbsp;&nbsp;<?php echo $user->merchant_id?></li>
     </ul>
     <?php endif;?>
 

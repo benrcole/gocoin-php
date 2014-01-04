@@ -1,11 +1,11 @@
 <?php
-    require_once('../src/api.php');
-    require_once('../src/auth.php');
-    require_once('../src/client.php');
+    require_once '../src/Api.php';
+    require_once '../src/Auth.php';
+    require_once '../src/Client.php';
 
     session_start();
-                                                                                              
-    /*    
+
+    /*
         Id:    your app client_id
         Secret:    your app secret id
         scope: read scope
@@ -17,14 +17,14 @@
         "'Content-Type' => 'application/text'"
     );
 
-    $client = new Client( array(        
+    $client = new GoCoin\PaymentAPI\Client( array(
         'client_id' => "PLACE_YOUR_CLIENT_ID_HERE",
         'client_secret' => "PLACE_YOUR_CLIENT_SECRET_HERE",
         'scope' => "user_read_write invoice_read_write",
         'headers' => $headers
-    ));    
-    
-    $b_auth = $client->authorize_api();
+    ));
+
+    $b_auth = $client->authorizeAPI();
 
     // data for invoice creation
     $my_data = array (
@@ -37,7 +37,6 @@
 
     $data_string = json_encode($my_data);
 
-
     if ($b_auth) {
         // retrieve user details
         $user = $client->api->user->self();
@@ -46,19 +45,18 @@
         }
 
         // get an invoice by id
-        // $get_my_invoice = $client->api->invoices->get("PUT_YOUR_INVOICE_ID_HERE");
+        // $get_my_invoice = $client->API->invoices->get("PUT_YOUR_INVOICE_ID_HERE");
 
         // search invoice - no params returns all avail
         //$fake_params = array();
-        //$search_my_invoices = $client->api->invoices->search($fake_params);
-
+        //$search_my_invoices = $client->API->invoices->search($fake_params);
 
         // stick merchant id into params for invoice creation
         $invoice_params = array(
             'id' => $user->merchant_id,
             'data' => $data_string
         );
-        
+
         if (!$invoice_params) {
             echo $client->getError();
         }
@@ -68,8 +66,6 @@
     } else {
         echo $client->getError();
     }
-
-
 
 ?>
 

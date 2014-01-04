@@ -9,53 +9,62 @@
  * @author Smith L <smith@gocoin.com>
  * @since  0.1.2
  */
+namespace GoCoin\PaymentAPI;
 
-require_once('api/merchant.php');
-require_once('api/user.php');
-require_once('api/apps.php');
-require_once('api/invoices.php');
-require_once('api/accounts.php');
+use GoCoin\PaymentAPI\API\User;
+use GoCoin\PaymentAPI\API\Invoices;
+use GoCoin\PaymentAPI\API\Accounts;
+use GoCoin\PaymentAPI\API\Merchant;
+use GoCoin\PaymentAPI\API\Apps;
 
-class Api{   
-            
+require_once 'api/Merchant.php';
+require_once 'api/User.php';
+require_once 'api/Apps.php';
+require_once 'api/Invoices.php';
+require_once 'api/Accounts.php';
+
+class Api
+{
     /**
-     * Constructor for the API     
-     * @param Object $client  instance of client
+     * Constructor for the API
+     * @param Object $client instance of client
      */
-    public function  __construct($client){ 
-        $this->client = $client;               
+    public function  __construct($client)
+    {
+        $this->client = $client;
         $this->user = new User($this);
         $this->merchant = new Merchant($this);
         $this->apps = new Apps($this);
         $this->invoices = new Invoices($this);
         $this->accounts = new Accounts($this);
     }
-    
+
     /**
     * Do process request
-    *  
+    *
     * @param string $route Route string for request
     * @param array $options Array of options
-    * 
+    *
     */
 
-
-    public function request($route, $options) {
-
+    public function request($route, $options)
+    {
         if (!(($route != null) && is_string($route))) {
             $this->client->setError('Api Request: Route was not defined');
+
             return false;
         }
         if (!$this->client->getToken()) {
             $this->client->setError('Api not ready: Token was not defined');
+
             return false;
         }
 
         // temp checks to remove php notices
-        if(!isset($options['header'])){ $options['header'] = null; }
-        if(!isset($options['headers'])){ $options['headers'] = null; }
-        if(!isset($options['body'])){ $options['body'] = null; }
-        if(!isset($options['method'])){ $options['method'] = null; }
+        if (!isset($options['header'])) { $options['header'] = null; }
+        if (!isset($options['headers'])) { $options['headers'] = null; }
+        if (!isset($options['body'])) { $options['body'] = null; }
+        if (!isset($options['method'])) { $options['method'] = null; }
 
         $headers = $options['header'] ? $options['headers']:  $this->client->default_headers;
 
@@ -78,5 +87,3 @@ class Api{
     }
 
 }
-
-?>

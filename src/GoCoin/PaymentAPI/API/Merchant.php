@@ -1,5 +1,6 @@
 <?php
-
+namespace GoCoin\PaymentAPI\API;
+use GoCoin\PaymentAPI\Api;
 /**
  * Merchant Class
  *
@@ -10,48 +11,58 @@
  * @since  0.1.2
  */
 
-class Merchant {
-
+class Merchant
+{
     private $api;
-    
-    public function __construct($api) {
+
+    public function __construct(Api $api)
+    {
       $this->api = $api;
     }
-    
-    public function create($params) {      
+
+    public function create($params)
+    {
       $route = '/merchants';
       $options = array(
         'method' => 'POST',
         'body' =>  $params
       );
+
       return $this->api->request($route, $options);
     }
-    public function delete($id) {            
+    public function delete($id)
+    {
       $route = "/merchants/" . $id;
       $options = array(
         'method' => 'DELETE'
       );
+
       return $this->api->request($route, $options);
     }
-    public function get($id) {            
+    public function get($id)
+    {
       $route = "/merchants/" . $id;
       $options = array();
+
       return $this->api->request($route, $options);
     }
-    
-    public function _list() {            
+
+    public function _list()
+    {
       $route = '/merchants';
       $options = array();
+
       return $this->api->request($route, $options);
     }
-    
-    public function update($params, $callback) {          
+
+    public function update($params, $callback)
+    {
       $route = "/merchants/" . $params['id'];
       $options = array(
         'method' => 'PATCH',
         'body' => $params['data']
       );
+
       return $this->api->request($route, $options);
     }
 }
-?>

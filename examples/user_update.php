@@ -1,7 +1,7 @@
 <?php
-    require_once('../src/api.php');
-    require_once('../src/auth.php');
-    require_once('../src/client.php');
+    require_once '../src/Api.php';
+    require_once '../src/Auth.php';
+    require_once '../src/Client.php';
 
     session_start();
 
@@ -10,7 +10,6 @@
         Secret:    your app secret id
         scope: read scope
     */
-
 
     // to test user updates, add '?lastname=NEWLASTNAMEHERE' to the url of this page
     $last_name = isset($_GET['lastname']) ? $_GET['lastname'] : "User2";
@@ -35,7 +34,7 @@
         echo $client->getError();
     }
 
-    if($user){
+    if ($user) {
         // stick json encoded array with new last name into params for update
         $update_user_params = array(
             'id' => $user->id,
@@ -47,14 +46,13 @@
         if (!$update_user) {
             echo $client->getError();
         }
-    }  else {
+    } else {
         echo $client->getError();
     }
 ?>
 
 <html>
 <body>
-
 
 <?php if ($user) : ?>
     <h4>Pre Update</h4>

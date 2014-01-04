@@ -9,44 +9,55 @@
  * @author Smith L <smith@gocoin.com>
  * @since  0.1.2
  */
-  
-class Invoices {
 
+namespace GoCoin\PaymentAPI\API;
+use GoCoin\PaymentAPI\Api;
+
+class Invoices
+{
     private $api;
 
-    public function __construct($api) {
+    public function __construct(Api $api)
+    {
         $this->api = $api;
     }
-    
-    public function create($params) {            
+
+    public function create($params)
+    {
         $route = "/merchants/" . $params['id'] . "/invoices";
         $options = array(
             'method' => 'POST',
             'body' => $params['data']
         );
+
         return $this->api->request($route, $options);
     }
-    
-    public function get($id) {           
+
+    public function get($id)
+    {
         $route = "/invoices/" . $id;
         $options = array();
+
         return $this->api->request($route, $options);
     }
-    
-    public function search($params) {            
+
+    public function search($params)
+    {
         $params = http_build_query($params);
         $route = "/invoices/search?" . $params;
         $options = array();
+
         return $this->api->request($route, $options);
     }
-    
-    public function update($params) {      
+
+    public function update($params)
+    {
         $route = "/invoices/" . $params['id'];
         $options = array(
             'method' => 'PATCH',
             'body' => $params['data']
         );
+
         return $this->api->request($route, $options);
     }
 }
-?>

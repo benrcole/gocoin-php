@@ -1,11 +1,11 @@
 <?php
-    require_once('../src/api.php');
-    require_once('../src/auth.php');
-    require_once('../src/client.php');
+    require_once '../src/Api.php';
+    require_once '../src/Auth.php';
+    require_once '../src/Client.php';
 
-    session_start();     
+    session_start();
 
-    /*    
+    /*
         Id      : your app client_id
         Secret  : your app secret id
         scope   : token scope
@@ -22,24 +22,24 @@
         'scope' => "user_read_write invoice_read_write",
         'redirect_uri' => "PUT_YOUR_URL_HERE",
         'headers' => $headers
-    ));    
-    
+    ));
+
     $client->initToken();
     $b_auth = $client->authorize_api();
 
     if ($b_auth) {
         $token = $client->getToken();
         echo "Access Token: ".$token;
-    }  else {
+    } else {
         echo $client->getError();
     }
-    
+
 ?>
 
 <html>
 <body>
     <?php if (!$b_auth) : ?>
         <a href="<?php echo $client->get_auth_url();?>">Login Go Coin</a>
-    <?php endif;?>    
+    <?php endif;?>
 </body>
 </html>

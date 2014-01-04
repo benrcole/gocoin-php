@@ -8,67 +8,88 @@
  * @author Smith L <smith@gocoin.com>
  * @since  0.1.2
  */
+namespace GoCoin\PaymentAPI\API;
+use GoCoin\PaymentAPI\Api;
 
-class User {
-
+class User
+{
     private $api;
 
-    public function __construct($api) {
+    public function __construct(Api $api)
+    {
         $this->api = $api;
     }
-    public function create($params) {            
+    public function create($params)
+    {
         $route = '/users';
         $options = array(
             'body' => $params['data']
         );
+
         return $this->api->request($route, $options);
     }
-    public function delete($id) {            
+    public function delete($id)
+    {
         $route = "/users/" . $id;
         $options = array(
             'method' => 'POST',
             'body' => $params['data']
         );
+
         return $this->api->request($route, $options);
     }
-    
-    public function get($id) {            
+
+    public function get($id)
+    {
         $route = "/users/" . $id;
         $options = array();
+
         return $this->api->request($route, $options);
     }
-    
-    public function _list() {            
+
+    public function _list()
+    {
         $route = '/users';
         $options = array();
+
         return $this->api->request($route, $options);
     }
-    
-    public function update($params) {            
+
+    public function update($params)
+    {
         $route = "/users/" . $params['id'];
         $options = array(
             'method' => 'PATCH',
             'body' => $params['data']
         );
+
         return $this->api->request($route, $options);
     }
-    
-    public function self() {            
+
+    /**
+     * @return bool
+     */
+    public function self()
+    {
         $route = '/user';
         $options = array();
+
         return $this->api->request($route, $options);
     }
-    
-    public function update_password($params) {            
+
+    public function updatePassword($params)
+    {
         $route = "/users/" . $params['id'] . "/password";
         $options = array(
             'method' => 'PATCH',
             'body' => $params['data']
         );
+
         return $this->api->request($route, $options);
     }
-    
-    public function request_password_reset($params) {      
+
+    public function requestPasswordReset($params)
+    {
         $route = "/users/request_password_reset";
         $config = array(
             'host' => $this->api->client->options['host'],
@@ -78,10 +99,12 @@ class User {
             'headers' => $this->api->client->headers,
             'body' => $params['data']
         );
+
         return $this->api->client->raw_request($config);
     }
-    
-    public function request_new_confirmation_email($params) {            
+
+    public function requestNewConfirmationEmail($params)
+    {
         $route = "/users/request_new_confirmation_email";
         $config = array(
             'host' => $this->api->client->$options['host'],
@@ -91,10 +114,12 @@ class User {
             'headers' => $this->api->client->headers,
             'body' => $params['data']
         );
+
         return $this->api->client->raw_request($config);
     }
-    
-    public function reset_password_with_token($params) {            
+
+    public function resetPasswordWithToken($params)
+    {
         $route = "/users/" . $params['id'] . "/reset_password/" . $params['reset_token'];
         $config = array(
             'host' => $this->api->client->options['host'],
@@ -104,7 +129,7 @@ class User {
             'headers' => $this->api->client->headers,
             'body' => $params['data']
         );
+
         return $this->api->client->raw_request($config);
     }
 }
-?>
